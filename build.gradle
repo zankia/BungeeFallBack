@@ -1,0 +1,30 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+apply plugin: 'java'
+
+group 'fr.zankia.fallback'
+version '1.0'
+description 'Moving players to default server when ejected'
+
+repositories {
+    maven {
+        url = 'https://oss.sonatype.org/content/repositories/releases'
+    }
+    maven {
+        url = 'https://oss.sonatype.org/content/repositories/snapshots'
+    }
+}
+
+dependencies {
+    compileOnly 'net.md-5:bungeecord-api:1.16-R0.4'
+}
+
+processResources {
+    filter(ReplaceTokens, tokens: [
+            name: project.name,
+            main: project.group + '.FallBack',
+            version: version,
+            description: project.description,
+            author: 'zankia'
+    ])
+}
