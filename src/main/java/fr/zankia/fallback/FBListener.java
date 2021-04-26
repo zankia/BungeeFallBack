@@ -11,9 +11,11 @@ import java.util.Iterator;
 
 public class FBListener implements Listener {
     private final Plugin plugin;
+    private final AvailabilityChecker checker;
 
     public FBListener(Plugin plugin) {
         this.plugin = plugin;
+        this.checker = new AvailabilityChecker(plugin);
     }
 
     @EventHandler
@@ -33,5 +35,7 @@ public class FBListener implements Listener {
 
         plugin.getLogger().info("Redirecting " + evt.getPlayer().getDisplayName() +
                 " from " + evt.getKickedFrom().getName() + " to " + evt.getCancelServer().getName());
+
+        checker.addWaitingList(evt.getKickedFrom(), evt.getPlayer());
     }
 }
